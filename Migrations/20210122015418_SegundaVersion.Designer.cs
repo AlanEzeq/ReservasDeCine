@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReservasDeCine.Database;
 
 namespace ReservasDeCine.Migrations
 {
     [DbContext(typeof(ReservasDeCineDbContext))]
-    partial class ReservasDeCineDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210122015418_SegundaVersion")]
+    partial class SegundaVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

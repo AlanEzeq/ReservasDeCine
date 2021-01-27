@@ -25,7 +25,7 @@ namespace ReservasDeCine.Models
         public Cliente Cliente { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Range(1, 20, ErrorMessage = "Cantidad maxima de butacas a reservar es {1}.")]
+        [Range(1, 20, ErrorMessage = "Cantidad de butacas a reservar debe ser entre {1} y {2}.")]
         [RegularExpression(@"[0-9]*", ErrorMessage = "El campo admite sólo caracteres numéricos.")]
         [Display(Name = "Cantidad de butacas")]
         public int CantidadButacas { get; set; }

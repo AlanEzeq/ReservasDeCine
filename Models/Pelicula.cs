@@ -26,7 +26,6 @@ namespace ReservasDeCine.Models
         [RegularExpression(@"[a-zA-Z0-9_\-]*", ErrorMessage = "El campo admite sólo caracteres alfanuméricos, guión bajo o guión medio")]
         [Display(Name = "Descripcion")]
         public String Descripcion { get; set; }
-
         public List<PeliculaGenero> Generos { get; set; }
         public List<Funcion> Funciones { get; set; }
 

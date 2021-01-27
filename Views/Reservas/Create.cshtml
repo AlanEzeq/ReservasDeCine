@@ -1,0 +1,47 @@
+﻿@model ReservasDeCine.Models.Reserva
+
+@{ ViewData["Title"] = "Nueva Reserva"; }
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Nueva Reserva</h5>
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label for="PeliculasEnCartelera" class="control-label">Películas en cartelera</label>
+                        <select asp-for="Funcion.PeliculaId" class="form-control selectpicker" asp-items="ViewBag.PeliculaId">
+                            <option>Seleccione una película</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Fecha" class="control-label">Fecha</label=>
+                        <input for="Fecha" class="form-control" textmode="Date"/>
+                        <span validation-for="Fecha" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CantidadButacas" class="control-label"></label>
+                        <input asp-for="CantidadButacas" class="form-control" />
+                        <span asp-validation-for="CantidadButacas" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FuncionId" class="control-label">Funciónes disponibles</label>
+                        <select asp-for="FuncionId" class="form-control selectpicker" asp-items="ViewBag.Funcion" disabled>
+                            <option>Seleccione una función</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Confirmar" class="btn btn-success" />
+                        <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -16,4 +16,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="3.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Clientes\" />
+    <Folder Include="Views\Peliculas\" />
+  </ItemGroup>
+
 </Project>

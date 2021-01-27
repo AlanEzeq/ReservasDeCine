@@ -1,0 +1,126 @@
+﻿@model IEnumerable<ReservasDeCine.Models.Reserva>
+
+@{ ViewData["Title"] = "Reserva"; }
+
+<h1>Reservas</h1>
+<!-- AR Si tiene una reserva activa no puedo crear una nueva
+     El modelo viene ordenado del controller por lo que la primer reserva
+    es activa si no aún no se proyectó-->
+@{var item1 = Model.FirstOrDefault();}
+
+@if (item1 != null && item1.Funcion.Fecha.AddHours(item1.Funcion.Hora) < DateTime.Now)
+{
+        <p>
+            <a asp-action="Create" class="btn btn-outline-primary">
+                Realizar una Reserva
+            </a>
+        </p>
+}
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcion.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcion.Hora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcion.Pelicula.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadButacas)
+            </th>
+            <!-- AR No permito eliminar una reserva cuya función comience antes de 24 hs 
+                Solo para que no me muestre la columna de más en caso que no la necesite -->
+            @if (item1 != null && item1.Funcion.Fecha.AddHours(item1.Funcion.Hora) >= DateTime.Now.AddDays(1))
+            {
+                <th>
+                </th>
+            }
+                    </tr>
+    </thead>
+    <tbody>
+        <!-- AR Si tengo una reserva activa la muestro en verde -->
+        @if (item1 != null && item1.Funcion.Fecha.AddHours(item1.Funcion.Hora) > DateTime.Now)
+        {
+        <tr style="background-color:#9cfb9f">
+            <td>
+                @item1.Funcion.Fecha.ToShortDateString()
+            </td>
+            <td>
+                @item1.Funcion.Hora
+            </td>
+            <td>
+                @item1.Funcion.Pelicula.Titulo
+            </td>
+            <td>
+                @item1.FechaAlta
+            </td>
+            <td>
+                @item1.CantidadButacas
+            </td>
+            <!-- AR No permito eliminar una reserva cuya función comience antes de 24 hs -->
+            @if (item1.Funcion.Fecha.AddHours(item1.Funcion.Hora) >= DateTime.Now.AddDays(1))
+            {
+                <td>
+                    <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item1.Id">
+                        Eliminar Reserva
+                    </a>
+                </td>
+            }
+        </tr>
+        }
+        else
+        {
+        <tr>
+            <td>
+                @item1.Funcion.Fecha.ToShortDateString()
+            </td>
+            <td>
+                @item1.Funcion.Hora
+            </td>
+            <td>
+                @item1.Funcion.Pelicula.Titulo
+            </td>
+            <td>
+                @item1.FechaAlta.Date
+            </td>
+            <td>
+                @item1.CantidadButacas
+            </td>
+        </tr>
+        }
+
+        <!-- AR Si hay mas reservas las muestro sin posibilidad de edición -->
+
+        @if (Model.Count() >= 1)
+        {
+
+            @for (int i = 1; i < Model.Count(); i++)
+            {
+                var item = Model.ElementAtOrDefault(i);
+            <tr>
+                <td>
+                    @item.Funcion.Fecha.ToShortDateString()
+                <td>
+                    @item.Funcion.Hora
+                </td>
+                <td>
+                    @item.Funcion.Pelicula.Titulo
+                </td>
+                <td>
+                    @item.FechaAlta.Date
+                </td>
+                <td>
+                    @item.CantidadButacas
+                </td>
+
+            </tr>
+            }
+        }
+    </tbody>
+</table>

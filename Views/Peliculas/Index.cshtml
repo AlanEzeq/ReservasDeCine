@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ReservasDeCine.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Película";
+}
+
+<h1>Películas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Alta de Película</a>
+</p>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaLanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Generos)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Pelicula item in Model)
+        {
+        <tr>
+            <td>
+                @item.Titulo
+            </td>
+            <td>
+                @item.Descripcion
+            </td>
+            <td>
+                @item.FechaLanzamiento
+            </td>
+            <td>
+                @string.Join(", ", item.Generos.Select(PeliculaGenero => PeliculaGenero.Genero.Nombre))
+            </td>
+
+            <td>
+                <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+                    Editar
+                </a>
+                <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
+                    Ver Detalles
+                </a>
+                <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
