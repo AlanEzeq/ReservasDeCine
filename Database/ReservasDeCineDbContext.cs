@@ -20,6 +20,7 @@ namespace ReservasDeCine.Database
         public DbSet<Reserva> Reservas { get; set; }
         public DbSet<Sala> Salas { get; set; }
         public DbSet<TipoSala> TipoSalas { get; set; }
+        public DbSet<PeliculasCartel> PeliculasCartel { get; set; }
 
         #endregion
 

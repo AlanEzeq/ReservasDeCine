@@ -5,9 +5,11 @@
 <h1>Reservas</h1>
 <!-- AR Si tiene una reserva activa no puedo crear una nueva
      El modelo viene ordenado del controller por lo que la primer reserva
-    es activa si no aún no se proyectó-->
+     es activa si aún no ocurrio la funcion
+    El primer item del modelo puede ser la reserva activa o no-->
 @{var item1 = Model.FirstOrDefault();}
 
+<!-- AR comparo si el item no es null y si la funcion aun no comenzo -->
 @if (item1 != null && item1.Funcion.Fecha.AddHours(item1.Funcion.Hora) < DateTime.Now)
 {
         <p>

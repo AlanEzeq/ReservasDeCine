@@ -6,7 +6,8 @@
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Nueva Reserva</h5>
+                <h2>Crear nueva reserva</h2>
+                <hr />
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
@@ -15,10 +16,12 @@
                             <option>Seleccione una película</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="Fecha" class="control-label">Fecha</label=>
-                        <input for="Fecha" class="form-control" textmode="Date"/>
-                        <span validation-for="Fecha" class="text-danger"></span>
+                    <div class='input-group date' id="Fecha">
+                        <label for="Fecha" class="control-label">Fecha</label>
+                        <input type="text" class="form-control" id="FechaTexto" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
                     </div>
                     <div class="form-group">
                         <label asp-for="CantidadButacas" class="control-label"></label>
@@ -28,11 +31,10 @@
                     <div class="form-group">
                         <label asp-for="FuncionId" class="control-label">Funciónes disponibles</label>
                         <select asp-for="FuncionId" class="form-control selectpicker" asp-items="ViewBag.Funcion" disabled>
-                            <option>Seleccione una función</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Confirmar" class="btn btn-success" />
+                        <input type="submit" value="Confirmar" class="btn btn-success" id="BotonConfirmar" disabled />
                         <a asp-action="Index" class="btn btn-danger">Cancelar</a>
                     </div>
                 </form>
@@ -44,4 +46,72 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- Load jQuery and bootstrap datepicker scripts -->
+
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/moment.js/moment.min.js"></script>
+    <script type="text/javascript" src="~/lib/moment.js/locale/es.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+    <script type="text/javascript">
+        // AR Cuando el documento este listo agrego el datepicker de bootstrap
+        $(document).ready(function () {
+
+            $('#Fecha').datepicker({
+                format: "dd-mm-yy",
+                language: 'es',
+                locale: 'es',
+                autoclose: true,
+                startDate: new Date(),
+                // AR solo puedo seleccionar una fecha dentro de los proximos 7 dias
+                endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            });
+        });
+
+        $('#CantidadButacas').change(function () {
+
+            // AR controlo que los parametros hayan sido elegidos
+            if (document.getElementById("Funcion_PeliculaId").value == "Seleccione una película") {
+                alert("Debe elegir la pelicula");
+                return false;
+            }
+            if (document.getElementById("FechaTexto").value == "") {
+                alert("Debe elegir la fecha");
+                return false;
+            }
+            if (document.getElementById("CantidadButacas").value == "") {
+                alert("Debe elegir la cantidad de butacas");
+                return false;
+            }
+
+            $.LoadingOverlay("show");
+            // AR despues lo completo con las funciones que me vienen del controller acorde a los parametros
+            $.getJSON('/Reservas/CargaFunciones/' + $('#Funcion_PeliculaId').val() + '/' + $('#FechaTexto').val() + '/' + $('#CantidadButacas').val(),
+                function (data) {
+                    // AR me fijo si hay funciones, si no hay funciones mando un alerta y deshabilito el boton submit
+                    if (data.length == 0) {
+                        alert("No hay funciones disponibles !");
+                        document.getElementById("FuncionId").setAttribute("disabled", "disabled");
+                        document.getElementById("BotonConfirmar").setAttribute("disabled", "disabled");
+                    } else {
+                        // AR primero habilito el select y el boton confirmar
+                        document.getElementById("FuncionId").removeAttribute("disabled");
+                        document.getElementById("BotonConfirmar").removeAttribute("disabled");
+                        var items = '<option>Seleccione una función</option>';
+                        $.each(data, function (i, funciones) {
+                            items += "<option value='" + funciones.value + "'>" + funciones.text + "</option>";
+                        });
+                        $('#FuncionId').html(items);
+                    }
+                });
+            $.LoadingOverlay("hide");
+        });
+    </script>
 }
