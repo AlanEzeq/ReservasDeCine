@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<ReservasDeCine.Models.Cliente>
 
-@{
-    ViewData["Title"] = "Clientes";
-}
+@{ ViewData["Title"] = "Clientes"; }
 
 <h1>Clientes</h1>
 
@@ -43,40 +41,45 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => model.Apellido)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => model.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DNI)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaAlta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefono)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>
-                <td>
-                    <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
-                        Editar
-                    </a>
-                    <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
-                        Ver Detalles
-                    </a>
-                    <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
-                        Eliminar
-                    </a>
-                </td>
-            </tr>
-        }
+<tr>
+    <td>
+        @Html.DisplayNameFor(model => model.Nombre)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.Apellido)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DNI)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaAlta)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Telefono)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Direccion)
+    </td>
+    <td>
+        <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+            Editar
+        </a>
+        <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
+            Ver Detalles
+        </a>
+        <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
+            Eliminar
+        </a>
+    </td>
+</tr>}
     </tbody>
 </table>
+<!-- AR agregue esto para que se vean las filas en 2 colores, el de boostrap no se nota o no funciona-->
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(217, 217, 217, 1);
+    }
+</style>

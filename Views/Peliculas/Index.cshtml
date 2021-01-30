@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<ReservasDeCine.Models.Pelicula>
 
-@{
-    ViewData["Title"] = "Película";
-}
+@{ ViewData["Title"] = "Película"; }
 
 <h1>Películas</h1>
 
@@ -30,32 +28,37 @@
     <tbody>
         @foreach (Pelicula item in Model)
         {
-        <tr>
-            <td>
-                @item.Titulo
-            </td>
-            <td>
-                @item.Descripcion
-            </td>
-            <td>
-                @item.FechaLanzamiento
-            </td>
-            <td>
-                @string.Join(", ", item.Generos.Select(PeliculaGenero => PeliculaGenero.Genero.Nombre))
-            </td>
+<tr>
+    <td>
+        @item.Titulo
+    </td>
+    <td>
+        @item.Descripcion
+    </td>
+    <td>
+        @item.FechaLanzamiento
+    </td>
+    <td>
+        @string.Join(", ", item.Generos.Select(PeliculaGenero => PeliculaGenero.Genero.Nombre))
+    </td>
 
-            <td>
-                <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
-                    Editar
-                </a>
-                <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
-                    Ver Detalles
-                </a>
-                <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
-                    Eliminar
-                </a>
-            </td>
-        </tr>
-        }
+    <td>
+        <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+            Editar
+        </a>
+        <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
+            Ver Detalles
+        </a>
+        <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
+            Eliminar
+        </a>
+    </td>
+</tr>}
     </tbody>
 </table>
+<!-- AR agregue esto para que se vean las filas en 2 colores, el de boostrap no se nota o no funciona-->
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(217, 217, 217, 1);
+    }
+</style>
