@@ -9,7 +9,7 @@ namespace ReservasDeCine.Models
         [RegularExpression(@"[0-9]{2}\.[0-9]{3}\.[0-9]{3}", ErrorMessage = "El campo debe ser del formato NN.NNN.NNN")]
         [MaxLength(20, ErrorMessage = "El campo {0} tiene un máximo de {1} caracteres")]
         [Display(Name = "DNI")]
-        public int DNI { get; set; }
+        public String DNI { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [RegularExpression(@"^\d{3}-\d{4}-\d{4}$", ErrorMessage = "El campo debe ser del formato NNN-NNNN-NNNN")]

@@ -22,7 +22,7 @@ namespace ReservasDeCine.Models
 
         [EmailAddress]
         [Required(ErrorMessage = "Este campo es requerido")]
-        [RegularExpression(@"[a-zA-Z0-9_\-\@]*", ErrorMessage = "El campo admite sólo caracteres alfanuméricos, guión bajo o guión medio y arroba")]
+        [RegularExpression(@"[a-zA-Z0-9_\-\@\.]*", ErrorMessage = "El campo admite sólo caracteres alfanuméricos, guión bajo o guión medio y arroba y punto")]
         [Display(Name = "Email")]
         public String Email { get; set; }
 

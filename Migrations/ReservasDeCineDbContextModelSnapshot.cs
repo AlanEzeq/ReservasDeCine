@@ -76,8 +76,9 @@ namespace ReservasDeCine.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int>("DNI")
-                        .HasColumnType("int")
+                    b.Property<string>("DNI")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<string>("Direccion")
@@ -210,6 +211,23 @@ namespace ReservasDeCine.Migrations
                     b.HasIndex("PeliculaId");
 
                     b.ToTable("PeliculaGeneros");
+                });
+
+            modelBuilder.Entity("ReservasDeCine.Models.PeliculasCartel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titulo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PeliculasCartel");
                 });
 
             modelBuilder.Entity("ReservasDeCine.Models.Reserva", b =>

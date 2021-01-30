@@ -22,7 +22,7 @@ namespace ReservasDeCine
         {
             services.AddControllersWithViews();
 
-            var connectionString = @"Server=LAPTOP-V4KNV9TK\SQLEXPRESS;Database=ReservasDeCine;User ID=ReservasDeCineAdmin;Password=alan2812;Trusted_Connection=True;";
+            var connectionString = @"Server=localhost\SQLEXPRESS01;Database=ReservasDeCine;User ID=ReservasDeCineAdmin;Password=alan2812;Trusted_Connection=True;";
             services.AddDbContext<ReservasDeCineDbContext>(options => options.UseSqlServer(connectionString));
             //services.AddDbContext<ReservasDeCineDbContext>(options => options.UseSqlite("filename=ReservasDeCine.db"));
         }
