@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReservasDeCine.Models;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReservasDeCine.Database
 {

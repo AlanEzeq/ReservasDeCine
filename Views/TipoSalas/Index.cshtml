@@ -1,11 +1,11 @@
-﻿@model IEnumerable<ReservasDeCine.Models.Genero>
+﻿@model IEnumerable<ReservasDeCine.Models.TipoSala>
 
-@{ ViewData["Title"] = "Géneros"; }
+@{ ViewData["Title"] = "Tipo de sala"; }
 
-<h1>Géneros</h1>
+<h1>Tipo de sala</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-outline-primary">Crear Género</a>
+    <a asp-action="Create" class="btn btn-outline-primary">Crear Tipo de sala</a>
 </p>
 <table class="table table-striped">
     <thead class="thead-dark">
@@ -13,29 +13,36 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Nombre)
-    </td>
-    <td>
-        <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
-            Editar
-        </a>
-        <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
-            Ver Detalles
-        </a>
-        <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
-            Eliminar
-        </a>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+                        Editar
+                    </a>
+                    <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
+                        Ver Detalles
+                    </a>
+                    <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
+                        Eliminar
+                    </a>
 
-    </td>
-</tr>}
+                </td>
+            </tr>
+}
     </tbody>
 </table>
 

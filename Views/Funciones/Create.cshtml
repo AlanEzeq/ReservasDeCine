@@ -1,20 +1,25 @@
-﻿@model ReservasDeCine.Models.Pelicula
+﻿@model ReservasDeCine.Models.Funcion
 
 @{
-    ViewData["Title"] = "Alta de Película";
+    ViewData["Title"] = "Alta de Función";
 }
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Alta de Película</h5>
+                <h5 class="card-title">Alta de Sala</h5>
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Titulo" class="control-label"></label>
-                        <input asp-for="Titulo" class="form-control" />
-                        <span asp-validation-for="Titulo" class="text-danger"></span>
+                        <label asp-for="Fecha" class="control-label"></label>
+                        <input asp-for="Fecha" class="form-control" />
+                        <span asp-validation-for="Fecha" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Hora" class="control-label"></label>
+                        <input asp-for="Hora" class="form-control" />
+                        <span asp-validation-for="Hora" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Descripcion" class="control-label"></label>
@@ -22,13 +27,22 @@
                         <span asp-validation-for="Descripcion" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="FechaLanzamiento" class="control-label"></label>
-                        <input asp-for="FechaLanzamiento" class="form-control" />
-                        <span asp-validation-for="FechaLanzamiento" class="text-danger"></span>
+                        <label asp-for="ButacasDisponibles" class="control-label"></label>
+                        <input asp-for="ButacasDisponibles" class="form-control" />
+                        <span asp-validation-for="ButacasDisponibles" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="generoIds" class="control-label">Géneros</label>
-                        <select name="generoIds" class="form-control selectpicker" asp-items="ViewBag.Genero" multiple></select>
+                        <label asp-for="Confirmada" class="control-label"></label>
+                        <input asp-for="Confirmada" class="form-control" />
+                        <span asp-validation-for="Confirmada" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PeliculaId" class="control-label"></label>
+                        <select asp-for="PeliculaId" class="form-control selectpicker" asp-items="ViewBag.PeliculaId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SalaId" class="control-label"></label>
+                        <select asp-for="SalaId" class="form-control selectpicker" asp-items="ViewBag.SalaId"></select>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Confirmar" class="btn btn-success" />

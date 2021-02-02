@@ -12,11 +12,11 @@ namespace ReservasDeCine.Models
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [RegularExpression(@"[0-9]*", ErrorMessage = "El campo admite sólo caracteres numéricos.")]
-        [Display(Name = "Nombre de usuario")]
+        [Display(Name = "Número de sala")]
         public int Numero { get; set; }
 
         [ForeignKey(nameof(TipoSala))]
-        [Display(Name = "TipoSala")]
+        [Display(Name = "Tipo de Sala")]
         public Guid TipoSalaId { get; set; } 
         public TipoSala TipoSala { get; set; }
 

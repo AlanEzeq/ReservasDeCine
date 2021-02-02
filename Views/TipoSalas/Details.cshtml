@@ -1,7 +1,7 @@
-﻿@model ReservasDeCine.Models.Genero
+﻿@model ReservasDeCine.Models.TipoSala
 
 @{
-    ViewData["Title"] = $"Género {Model.Nombre}";
+    ViewData["Title"] = $"Tipo de sala {Model.Nombre}";
 }
 
 <div class="row">
@@ -20,6 +20,14 @@
                         @Html.DisplayFor(model => model.Nombre)
                     </dd>
                 </dl>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Precio)
+                    </dd>
+                </dl>
                 <hr />
                 <div class="form-group">
                     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">
@@ -33,3 +41,4 @@
         </div>
     </div>
 </div>
+

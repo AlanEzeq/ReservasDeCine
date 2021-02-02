@@ -1,24 +1,18 @@
-﻿@model ReservasDeCine.Models.Pelicula
+﻿@model ReservasDeCine.Models.Funcion
 
 @{
-    ViewData["Title"] = $"Pelicula {Model.Titulo}";
+    ViewData["Title"] = $"Funcion {Model.Descripcion}";
 }
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Datos de @Model.Titulo</h5>
+                <h5 class="card-title">Datos de Función @Model.Descripcion</h5>
 
                 <hr />
 
                 <dl class="row">
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.Titulo)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.Titulo)
-                    </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Descripcion)
                     </dt>
@@ -26,21 +20,40 @@
                         @Html.DisplayFor(model => model.Descripcion)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.FechaLanzamiento)
+                        @Html.DisplayNameFor(model => model.Fecha)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.FechaLanzamiento)
+                        @Html.DisplayFor(model => model.Fecha)
                     </dd>
                     <dt class="col-sm-2">
-                        Géneros
+                        @Html.DisplayNameFor(model => model.Hora)
                     </dt>
                     <dd class="col-sm-10">
-                        <ul>
-                            @foreach (Genero genero in Model.Generos.Select(PeliculaGenero => PeliculaGenero.Genero))
-                            {
-                                <li>@genero.Nombre</li>
-                            }
-                        </ul>
+                        @Html.DisplayFor(model => model.Hora)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.ButacasDisponibles)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.ButacasDisponibles)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Confirmada)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Confirmada)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Pelicula.Titulo)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Pelicula.Titulo)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Sala.Numero)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Sala.Numero)
                     </dd>
                 </dl>
                 <hr />

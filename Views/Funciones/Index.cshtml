@@ -1,61 +1,81 @@
-﻿@model IEnumerable<ReservasDeCine.Models.Pelicula>
+﻿@model IEnumerable<ReservasDeCine.Models.Funcion>
 
-@{ ViewData["Title"] = "Película"; }
+@{ ViewData["Title"] = "Funciones"; }
 
-<h1>Películas</h1>
+<h1>Funciones</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-outline-primary">Alta de Película</a>
+    <a asp-action="Create" class="btn btn-outline-primary">Crear Función</a>
 </p>
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaLanzamiento)
+                @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Generos)
+                @Html.DisplayNameFor(model => model.Hora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ButacasDisponibles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Confirmada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pelicula.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala.Numero)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Pelicula item in Model)
+        @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @item.Titulo
-    </td>
-    <td>
-        @item.Descripcion
-    </td>
-    <td>
-        @item.FechaLanzamiento
-    </td>
-    <td>
-        @string.Join(", ", item.Generos.Select(PeliculaGenero => PeliculaGenero.Genero.Nombre))
-    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelitem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelitem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ButacasDisponibles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirmada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pelicula.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sala.Numero)
+            </td>
+            <td>
+                <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
+                    Editar
+                </a>
+                <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
+                    Ver Detalles
+                </a>
+                <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
+                    Eliminar
+                </a>
 
-    <td>
-        <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
-            Editar
-        </a>
-        <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
-            Ver Detalles
-        </a>
-        <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
-            Eliminar
-        </a>
-    </td>
-</tr>}
+            </td>
+        </tr>
+        }
     </tbody>
 </table>
+
 <!-- AR agregue esto para que se vean las filas en 2 colores, el de boostrap no se nota o no funciona-->
 <style>
     .table-striped tbody tr:nth-of-type(odd) {

@@ -1,25 +1,37 @@
-﻿@model ReservasDeCine.Models.Genero
+﻿@model ReservasDeCine.Models.Sala
 
 @{
-    ViewData["Title"] = $"Género {Model.Nombre}";
+    ViewData["Title"] = $"Sala {Model.Numero}";
 }
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Datos de @Model.Nombre</h5>
+                <h5 class="card-title">Datos de Sala @Model.Numero</h5>
 
                 <hr />
 
                 <dl class="row">
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.Nombre)
+                        @Html.DisplayNameFor(model => model.Numero)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.Nombre)
+                        @Html.DisplayFor(model => model.Numero)
                     </dd>
-                </dl>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.CapacidadButacas)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CapacidadButacas)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.TipoSala.Nombre)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.TipoSala.Nombre)
+                    </dd>
+                    </dl>
                 <hr />
                 <div class="form-group">
                     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">
