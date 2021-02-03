@@ -60,6 +60,9 @@ namespace ReservasDeCine.Controllers
             if (ModelState.IsValid)
             {
                 funcion.Id = Guid.NewGuid();
+                // AR Busco la cantidad de butacas de la sala y se la agrego a la funcion
+                var ReservasDeCineDbSalaContext = _context.Salas.Where(p => p.Id == funcion.SalaId).FirstOrDefault();
+                funcion.ButacasDisponibles = ReservasDeCineDbSalaContext.CapacidadButacas;
                 _context.Add(funcion);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));

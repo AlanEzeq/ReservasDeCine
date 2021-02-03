@@ -107,9 +107,22 @@ namespace ReservasDeCine.Controllers
                 nuevaReserva.CantidadButacas = CantidadButacas;
                 nuevaReserva.FuncionId = FuncionId;
                 _context.Add(nuevaReserva);
+
+                // AR bajo la cantidad de butacas disponibles en la funcion
+                var FuncionAModificar = _context.Funciones
+                    .Where(f => f.Id == nuevaReserva.FuncionId)
+                    .FirstOrDefault();
+
+                FuncionAModificar.ButacasDisponibles -= nuevaReserva.CantidadButacas;
+
+                _context.Funciones.Update(FuncionAModificar);
+
                 _context.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
+
+
             return View(nuevaReserva);
         }
 
@@ -146,6 +159,8 @@ namespace ReservasDeCine.Controllers
             }
 
             var reserva = await _context.Reservas
+                .Include(r => r.Funcion)
+                .ThenInclude(p => p.Pelicula)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reserva == null)
             {

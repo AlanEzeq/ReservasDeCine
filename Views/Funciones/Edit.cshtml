@@ -1,4 +1,4 @@
-﻿@model Funcion
+﻿@model ReservasDeCine.Models.Funcion
 
 @{
     ViewData["Title"] = $"Modificar Función {Model.Descripcion}";
@@ -10,10 +10,12 @@
             <div class="card-body">
                 <h5 class="card-title">Edición de Sala</h5>
                 <form asp-action="Edit">
-                    <div class="form-group">
+                    <div class='input-group date' id="Fecha">
                         <label asp-for="Fecha" class="control-label"></label>
-                        <input asp-for="Fecha" class="form-control" />
-                        <span asp-validation-for="Fecha" class="text-danger"></span>
+                        <input asp-for="Fecha" type="text" class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Hora" class="control-label"></label>
@@ -55,4 +57,28 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- Load jQuery and bootstrap datepicker scripts -->
+
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/moment.js/moment.min.js"></script>
+    <script type="text/javascript" src="~/lib/moment.js/locale/es.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#Fecha').datepicker({
+                format: "dd/mm/yyyy",
+                language: 'es',
+                locale: 'es',
+                autoclose: true,
+                startDate: new Date(),
+            });
+        });
+    </script>
 }

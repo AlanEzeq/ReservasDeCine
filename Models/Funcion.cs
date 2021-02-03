@@ -13,6 +13,7 @@ namespace ReservasDeCine.Models
         [Required(ErrorMessage = "Este campo es requerido")]
         [Display(Name = "Fecha")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime Fecha { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido")]
@@ -29,7 +30,7 @@ namespace ReservasDeCine.Models
 
 
         [Required(ErrorMessage = "Este campo es requerido")]
-        [Range(0, 500, ErrorMessage = "Cantidad maxima de butacas es {1}.")]
+        [Range(0, 500, ErrorMessage = "Cantidad maxima de butacas es {2}.")]
         [RegularExpression(@"[0-9]*", ErrorMessage = "El campo admite sólo caracteres numéricos.")]
         [Display(Name = "Butacas Disponibles")]
         public int ButacasDisponibles { get; set; }

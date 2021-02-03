@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace juegos_mvc.Validation
+namespace ReservasDeCine.Validation
 {
     public class AnioDesdeHastaHoyAttribute : ValidationAttribute
     {

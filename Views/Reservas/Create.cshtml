@@ -29,6 +29,9 @@
                         <span asp-validation-for="CantidadButacas" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <input type="button" value="Buscar Función" class="btn btn-secondary" id="BotonBuscar"  />
+                    </div>
+                    <div class="form-group">
                         <label asp-for="FuncionId" class="control-label">Funciónes disponibles</label>
                         <select asp-for="FuncionId" class="form-control selectpicker" asp-items="ViewBag.Funcion" disabled>
                         </select>
@@ -75,7 +78,7 @@
             });
         });
 
-        $('#CantidadButacas').change(function () {
+        $('#BotonBuscar').click (function () {
 
             // AR controlo que los parametros hayan sido elegidos
             if (document.getElementById("Funcion_PeliculaId").value == "Seleccione una película") {
@@ -91,6 +94,7 @@
                 return false;
             }
 
+            // AR Icono que gira mientras corre la funcion. 
             $.LoadingOverlay("show");
             // AR despues lo completo con las funciones que me vienen del controller acorde a los parametros
             $.getJSON('/Reservas/CargaFunciones/' + $('#Funcion_PeliculaId').val() + '/' + $('#FechaTexto').val() + '/' + $('#CantidadButacas').val(),
@@ -106,6 +110,8 @@
                         document.getElementById("BotonConfirmar").removeAttribute("disabled");
                         var items = '<option>Seleccione una función</option>';
                         $.each(data, function (i, funciones) {
+
+                            // AR Ver bien como es esta sentencia
                             items += "<option value='" + funciones.value + "'>" + funciones.text + "</option>";
                         });
                         $('#FuncionId').html(items);

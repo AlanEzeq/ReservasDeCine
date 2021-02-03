@@ -2,7 +2,7 @@
 {
     public enum Rol
     {
-        Administrador = 0,
+        Empleado = 0,
         Cliente = 1
     }
 }
