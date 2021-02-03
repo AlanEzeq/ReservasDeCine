@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using ReservasDeCine.Models.Enums
+@using System.Security.Claims
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ReservasDeCine</title>
+    <title>@ViewData["Title"] - CineRos</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -12,39 +15,79 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ReservasDeCine</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bienvenido a CineRos</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.Identity.IsAuthenticated)
+                        {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Generos" asp-action="Index">Generos</a>
+                            <button class="btn" type="button" aria-expanded="false">
+                                @User.FindFirst(ClaimTypes.GivenName).Value <span class="caret ml-1"></span>
+                            </button>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Peliculas" asp-action="Index">Películas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoSalas" asp-action="Index">TipoSalas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Funciones" asp-action="Index">Funciones</a>
-                        </li>
-                    </ul>
+                                @if (User.IsInRole(nameof(Rol.Cliente)))
+                                {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                                </li>
+                            }
+                                @if (User.IsInRole(nameof(Rol.Empleado)))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Generos" asp-action="Index">Generos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Peliculas" asp-action="Index">Películas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Salas" asp-action="Index">Salas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="TipoSalas" asp-action="Index">TipoSalas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Funciones" asp-action="Index">Funciones</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <form method="post" asp-controller="Accesos" asp-action="Logout">
+                                        <button type="submit" class="btn btn-outline-primary">
+                                            Salir
+                                        </button>
+                                    </form>
+                                </li>
+
+                                }
+                                else
+                                {
+                                <li>
+                                    <a asp-controller="Clientes" asp-action="Create" class="btn btn-outline-primary">
+                                        Registrarse
+                                    </a>
+                                </li>
+                                <li class="ml-1">
+                                    <a asp-controller="Accesos" asp-action="Login" class="btn btn-success">
+                                        Login
+                                    </a>
+                                </li>
+                                }
+                            </ul>
                 </div>
+
             </div>
         </nav>
     </header>
@@ -56,12 +99,24 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - ReservasDeCine - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - CineRos - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/alertifyjs/alertify.min.js"></script>
+    <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="~/lib/bootstrap-select/js/i18n/defaults-es_ES.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @if (TempData["JustLoggedIn"] as bool? ?? false)
+    {
+        <script>
+            alertify.success('Bienvenido @User.Identity.Name !!!');
+        </script>
+    }
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -12,7 +12,7 @@ using ReservasDeCine.Models.Enums;
 
 namespace ReservasDeCine.Controllers
 {
-  //  [Authorize(Roles = nameof(Rol.Administrador))]
+    [Authorize(Roles = nameof(Rol.Empleado))]
     public class PeliculasController : Controller
     {
         private readonly ReservasDeCineDbContext _context;

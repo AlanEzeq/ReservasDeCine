@@ -71,13 +71,6 @@ namespace ReservasDeCine.Controllers
                 cliente.Id = Guid.NewGuid();
                 cliente.FechaAlta = DateTime.Now;
                 cliente.Password = pass.Encriptar();
-                //cliente.Nombre = cliente.Nombre;
-                //cliente.Apellido = cliente.Apellido;
-                //cliente.Email = cliente.Email;
-                //cliente.DNI = cliente.DNI;
-                //cliente.Telefono = cliente.Telefono;
-                //cliente.Direccion = cliente.Direccion;
-
                 _context.Add(cliente);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));

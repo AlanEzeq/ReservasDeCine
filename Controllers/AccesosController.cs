@@ -91,7 +91,7 @@ namespace ReservasDeCine.Controllers
             }
 
             // Completo estos dos campos para poder retornar a la vista en caso de errores.
-            ViewBag.Error = "Usuario o contraseña incorrectos";
+            ViewBag.Error = "email o contraseña incorrectos";
             ViewBag.UserName = email;
             TempData[_Return_Url] = returnUrl;
 

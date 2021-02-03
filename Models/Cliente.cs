@@ -21,7 +21,7 @@ namespace ReservasDeCine.Models
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(50, ErrorMessage = "La longitud máxima del campo es de 50 caracteres")]
-        [RegularExpression(@"[a-zA-Z0-9_\-]*", ErrorMessage = "El campo admite sólo caracteres alfanuméricos, guión bajo o guión medio")]
+        [RegularExpression(@"[ áéíóúña-zA-Z0-9_\-]*", ErrorMessage = "El campo admite sólo caracteres alfanuméricos, guión bajo o guión medio")]
         [Display(Name = "Direccion")]
         public String Direccion { get; set; }
 

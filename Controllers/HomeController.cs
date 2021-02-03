@@ -19,8 +19,7 @@ namespace ReservasDeCine.Controllers
         public IActionResult Index()
         {
             ViewBag.Cliente = new SelectList(_context.Clientes, nameof(Cliente.Id), nameof(Cliente.Email));
-            //ViewBag.Categorias = new SelectList(_context.Categorias, nameof(Categoria.Id), nameof(Categoria.Descripcion));
-            ViewBag.Generos = new SelectList(_context.Generos, nameof(Genero.Id), nameof(Genero.Nombre));
+ //           ViewBag.Generos = new SelectList(_context.Generos, nameof(Genero.Id), nameof(Genero.Nombre));
 
             return View();
         }
