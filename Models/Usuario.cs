@@ -35,6 +35,7 @@ namespace ReservasDeCine.Models
         [Display(Name = "Constraseña")]
         public byte [] Password { get; set; }
 
+        [Display(Name = "Nombre y Apellido")]
         public string NombreYApellido => $"{Nombre} {Apellido}";
     }
 }

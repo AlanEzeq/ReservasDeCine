@@ -54,11 +54,11 @@ namespace ReservasDeCine.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Cliente cliente, string pass)
+        public IActionResult Create(Cliente cliente, string Password)
         {
             try
             {
-                pass.ValidarPassword();
+                Password.ValidarPassword();
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace ReservasDeCine.Controllers
             {
                 cliente.Id = Guid.NewGuid();
                 cliente.FechaAlta = DateTime.Now;
-                cliente.Password = pass.Encriptar();
+                cliente.Password = Password.Encriptar();
                 _context.Add(cliente);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));

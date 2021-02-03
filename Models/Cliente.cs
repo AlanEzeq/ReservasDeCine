@@ -25,7 +25,6 @@ namespace ReservasDeCine.Models
         [Display(Name = "Direccion")]
         public String Direccion { get; set; }
 
-
         public List<Reserva> Reservas { get; set; }
 
     }

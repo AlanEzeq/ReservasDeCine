@@ -55,7 +55,7 @@ namespace ReservasDeCine.Controllers
                 if (usuario != null)
                 {
                     var passwordEncriptada = password.Encriptar();
-
+                    // AR comparo la password del usuario persistido en la base con la del parametro
                     if (usuario.Password.SequenceEqual(passwordEncriptada))
                     {
                         // Se crean las credenciales del usuario que serán incorporadas al contexto
@@ -68,6 +68,7 @@ namespace ReservasDeCine.Controllers
                         identity.AddClaim(new Claim(ClaimTypes.Role, rol.ToString()));
 
                         // Lo utilizaremos para acceder al Id del usuario que se encuentra en el sistema.
+                        // AR usar esto para obtener el cliente ID en los controladores
                         identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()));
 
                         // Lo utilizaremos cuando querramos mostrar el nombre del usuario logueado en el sistema.

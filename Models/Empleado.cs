@@ -6,7 +6,7 @@ namespace ReservasDeCine.Models
     public class Empleado : Usuario
     {
         [Required(ErrorMessage = "Este campo es requerido")]
-        [RegularExpression(@"[0-9]{2}\.[0-9]{3}\.[0-9]{3}", ErrorMessage = "El campo debe ser del formato NN.NNN.NNN")]
+        [RegularExpression(@"[0-9]{8}", ErrorMessage = "El campo debe ser del formato NN.NNN.NNN")]
         [MaxLength(20, ErrorMessage = "El campo {0} tiene un máximo de {1} caracteres")]
         [Display(Name = "DNI")]
         public String DNI { get; set; }
@@ -19,7 +19,7 @@ namespace ReservasDeCine.Models
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [MaxLength(50, ErrorMessage = "La longitud máxima del campo es de 50 caracteres")]
-        [RegularExpression(@"[a-zA-Z0-9_\-]*", ErrorMessage = "El campo admite sólo caracteres alfanuméricos, guión bajo o guión medio")]
+        [RegularExpression(@"[ áéíóúña-zA-Z0-9_\-]*", ErrorMessage = "El campo admite sólo caracteres alfanuméricos, guión bajo o guión medio")]
         [Display(Name = "Direccion")]
         public String Direccion { get; set; }
 

@@ -54,11 +54,12 @@ namespace ReservasDeCine.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Empleado empleado, string pass)
+        // AR acordarse que los nombres deben coincidir con el View para conectarlos
+        public IActionResult Create(Empleado empleado, string Password)
         {
             try
             {
-                pass.ValidarPassword();
+                Password.ValidarPassword();
             }
             catch (Exception ex)
             {
@@ -70,14 +71,8 @@ namespace ReservasDeCine.Controllers
             {
                 empleado.Id = Guid.NewGuid();
                 empleado.FechaAlta = DateTime.Now;
-                empleado.Password = pass.Encriptar();
+                empleado.Password = Password.Encriptar();
                 empleado.Legajo = Guid.NewGuid();
-                //empleado.Nombre = empleado.Nombre;
-                //empleado.Apellido = empleado.Apellido;
-                //empleado.Email = empleado.Email;
-                //empleado.DNI = empleado.DNI;
-                //empleado.Telefono = empleado.Telefono;
-                //empleado.Direccion = empleado.Direccion;
 
                 _context.Add(empleado);
                 _context.SaveChanges();
@@ -105,13 +100,13 @@ namespace ReservasDeCine.Controllers
         //    [Authorize(Roles = nameof(Rol.Administrador))]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Guid id, Empleado empleado, string pass)
+        public IActionResult Edit(Guid id, Empleado empleado, string Password)
         {
-            if (!string.IsNullOrWhiteSpace(pass))
+            if (!string.IsNullOrWhiteSpace(Password))
             {
                 try
                 {
-                    pass.ValidarPassword();
+                    Password.ValidarPassword();
                 }
                 catch (Exception ex)
                 {
@@ -139,9 +134,9 @@ namespace ReservasDeCine.Controllers
                     empleadoeDb.Telefono = empleado.Telefono;
                     empleadoeDb.Direccion = empleado.Direccion;
 
-                    if (!string.IsNullOrWhiteSpace(pass))
+                    if (!string.IsNullOrWhiteSpace(Password))
                     {
-                        empleadoeDb.Password = pass.Encriptar();
+                        empleadoeDb.Password = Password.Encriptar();
                     }
 
                     _context.SaveChanges();
