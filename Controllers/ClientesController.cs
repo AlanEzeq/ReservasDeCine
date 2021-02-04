@@ -8,11 +8,12 @@ using ReservasDeCine.Database;
 using ReservasDeCine.Models;
 using ReservasDeCine.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using ReservasDeCine.Models.Enums;
 //using ReservasDeCine.Models.Enums;
 
 namespace ReservasDeCine.Controllers
 {
- //   [Authorize]
+    [Authorize]
     public class ClientesController : Controller
     {
         private readonly ReservasDeCineDbContext _context;
@@ -28,7 +29,7 @@ namespace ReservasDeCine.Controllers
             return View(await _context.Clientes.ToListAsync());
         }
 
-//        [Authorize(Roles = nameof(Rol.Administrador))]
+        [Authorize(Roles = nameof(Rol.Cliente))]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -149,7 +150,7 @@ namespace ReservasDeCine.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             return View(cliente);
         }

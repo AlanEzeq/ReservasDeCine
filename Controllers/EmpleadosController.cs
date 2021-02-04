@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ReservasDeCine.Controllers
 {
-    //   [Authorize]
+    [Authorize]
     public class EmpleadosController : Controller
     {
         private readonly ReservasDeCineDbContext _context;

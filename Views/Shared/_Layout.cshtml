@@ -34,10 +34,10 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Details" asp-route-Id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">Datos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Cartelera</a>
                                 </li>
                             }
                             @if (User.IsInRole(nameof(Rol.Empleado)))
