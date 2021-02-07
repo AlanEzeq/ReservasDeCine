@@ -18,6 +18,7 @@
         </a>
     </p>
 }
+
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -49,9 +50,9 @@
         <!-- AR Si tengo una reserva activa la muestro en verde -->
         @if (item1 != null && item1.Funcion.Fecha.AddHours(item1.Funcion.Hora) > DateTime.Now)
         {
-        <tr class="table-success font-weight-bold">
+            <tr class="table-success font-weight-bold">
                 <td>
-                    @item1.Funcion.Fecha.ToShortDateString()
+                    @item1.Funcion.Fecha.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     @item1.Funcion.Hora
@@ -73,18 +74,19 @@
                             Eliminar Reserva
                         </a>
                     </td>
-                }else
+                }
+                else
                 {
-                <td>
-                </td>
-            }
-        </tr>
+                    <td>
+                    </td>
+                }
+            </tr>
         }
-        else
+        else if (item1 != null)
         {
             <tr class="font-weight-bold">
                 <td>
-                    @item1.Funcion.Fecha.ToShortDateString()
+                    @item1.Funcion.Fecha.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     @item1.Funcion.Hora
@@ -99,9 +101,16 @@
                     @item1.CantidadButacas
                 </td>
                 <td>
-            
                 </td>
             </tr>
+        }
+        else
+        {
+            <p>
+                <a asp-action="Create" class="btn btn-outline-primary">
+                    Realizar una Reserva
+                </a>
+            </p>
         }
 
         <!-- AR Si hay mas reservas las muestro sin posibilidad de edición -->
@@ -114,7 +123,7 @@
                 var item = Model.ElementAtOrDefault(i);
                 <tr>
                     <td>
-                        @item.Funcion.Fecha.ToShortDateString()
+                        @item.Funcion.Fecha.ToString("dd/MM/yyyy")
                     <td>
                         @item.Funcion.Hora
                     </td>
@@ -128,7 +137,6 @@
                         @item.CantidadButacas
                     </td>
                     <td>
-            
                     </td>
 
                 </tr>

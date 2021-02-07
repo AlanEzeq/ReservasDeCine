@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace ReservasDeCine.Controllers
 {
@@ -16,12 +18,9 @@ namespace ReservasDeCine.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.Cliente = new SelectList(_context.Clientes, nameof(Cliente.Id), nameof(Cliente.Email));
- //           ViewBag.Generos = new SelectList(_context.Generos, nameof(Genero.Id), nameof(Genero.Nombre));
-
-            return View();
+            return View(await _context.PeliculasCartel.ToListAsync());
         }
     }
 }

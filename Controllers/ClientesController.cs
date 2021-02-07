@@ -48,13 +48,16 @@ namespace ReservasDeCine.Controllers
             return View(cliente);
         }
 
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public IActionResult Create(Cliente cliente, string Password)
         {
             try

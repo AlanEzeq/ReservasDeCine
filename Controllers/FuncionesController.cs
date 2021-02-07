@@ -23,7 +23,11 @@ namespace ReservasDeCine.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var ReservasDeCineDbContext = _context.Funciones.Include(j => j.Pelicula).Include(j => j.Sala);
+            var ReservasDeCineDbContext = _context.Funciones
+                .Include(j => j.Pelicula)
+                .Include(j => j.Sala)
+                .Where(i => i.Fecha >= DateTime.Now)
+                .OrderBy(j => j.Fecha); 
             return View(await ReservasDeCineDbContext.ToListAsync());
         }
 
@@ -38,6 +42,7 @@ namespace ReservasDeCine.Controllers
                 .Include(j => j.Pelicula)
                 .Include(j => j.Sala)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (funcion == null)
             {
                 return NotFound();
@@ -160,7 +165,34 @@ namespace ReservasDeCine.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> FuncionesDisponibles(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var funcionesDisponiblesContext = _context.Funciones
+                .Include(j => j.Pelicula)
+                .Include(s => s.Sala)
+                .Where(i => i.PeliculaId == id)
+                .Where(j => j.Confirmada == true)
+                .Where(f => f.Fecha.AddHours(f.Hora) >= DateTime.Now)
+                .Where(f => f.Fecha.AddHours(f.Hora) < DateTime.Now.AddDays(7))
+                .OrderBy(j => j.Fecha );
+
+
+            if (funcionesDisponiblesContext.FirstOrDefault() == null)
+            {
+                TempData["Titulo"] = "No hay funciones disponibles";
+                return View(await funcionesDisponiblesContext.ToListAsync());
+            }
+
+            TempData["Titulo"] = "Funciones de: " + funcionesDisponiblesContext.FirstOrDefault().Pelicula.Titulo;
+
+            return View(await funcionesDisponiblesContext.ToListAsync());
+
+        }
 
 
         private bool FuncionExists(Guid id)

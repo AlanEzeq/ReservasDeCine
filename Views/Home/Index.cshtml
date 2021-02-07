@@ -1,8 +1,57 @@
-﻿@{
+﻿@using ReservasDeCine.Models.Enums
+@using System.Security.Claims
+@model IEnumerable<ReservasDeCine.Models.PeliculasCartel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Reserva de Peliculas!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Reserva de Peliculas CINEROSE!</h1>
 </div>
+
+
+<h1>Películas en cartelera</h1>
+
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PeliculasCartel item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Titulo
+                </td>
+                <td>
+                    @item.Descripcion
+                </td>
+
+                <td>
+                    @if (User.IsInRole(nameof(Rol.Cliente)) || User.IsInRole(nameof(Rol.Empleado)))
+                    {
+                        <a class="btn btn-outline-info btn-sm" asp-controller="Funciones" asp-action="FuncionesDisponibles" asp-route-id="@item.Id">
+                            Funciones disponibles
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- AR agregue esto para que se vean las filas en 2 colores, el de boostrap no se nota o no funciona-->
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(217, 217, 217, 1);
+    }
+</style>

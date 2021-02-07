@@ -16,12 +16,15 @@
                             <option>Seleccione una película</option>
                         </select>
                     </div>
-                    <div class='input-group date' id="Fecha">
-                        <label for="Fecha" class="control-label">Fecha</label>
-                        <input type="text" class="form-control" id="FechaTexto" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+                    @{ 
+                        // AR despues de mucho recorrer la red pude encontrar esta solucion
+                        var minDate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+                        var maxDate = DateTime.Now.AddDays(7).Date.ToString("yyyy-MM-dd");
+                    }
+                    <div class="form-group">
+                        <label for="Fecha" class="control-label"></label>
+                        <input id="Fecha" type="date" min="@minDate" max="@maxDate" value="@minDate"class="form-control" />
+                        <span validation-for="Fecha" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="CantidadButacas" class="control-label"></label>
@@ -29,7 +32,7 @@
                         <span asp-validation-for="CantidadButacas" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="button" value="Buscar Función" class="btn btn-secondary" id="BotonBuscar"  />
+                        <input type="button" value="Buscar Función" class="btn btn-secondary" id="BotonBuscar" />
                     </div>
                     <div class="form-group">
                         <label asp-for="FuncionId" class="control-label">Funciónes disponibles</label>
@@ -50,42 +53,18 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <!-- Load jQuery and bootstrap datepicker scripts -->
-
-    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="~/lib/moment.js/moment.min.js"></script>
-    <script type="text/javascript" src="~/lib/moment.js/locale/es.js"></script>
-    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 
     <script type="text/javascript">
-        // AR Cuando el documento este listo agrego el datepicker de bootstrap
-        $(document).ready(function () {
 
-            $('#Fecha').datepicker({
-                format: "dd-mm-yy",
-                language: 'es',
-                locale: 'es',
-                autoclose: true,
-                startDate: new Date(),
-                // AR solo puedo seleccionar una fecha dentro de los proximos 7 dias
-                endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-            });
-        });
-
-        $('#BotonBuscar').click (function () {
+        $('#BotonBuscar').click(function () {
 
             // AR controlo que los parametros hayan sido elegidos
             if (document.getElementById("Funcion_PeliculaId").value == "Seleccione una película") {
                 alert("Debe elegir la pelicula");
                 return false;
             }
-            if (document.getElementById("FechaTexto").value == "") {
+            if (document.getElementById("Fecha").value == "") {
                 alert("Debe elegir la fecha");
                 return false;
             }
@@ -94,10 +73,12 @@
                 return false;
             }
 
-            // AR Icono que gira mientras corre la funcion. 
+            //            alert(document.getElementById("Fecha").value);
+
+            // AR Icono que gira mientras corre la funcion.
             $.LoadingOverlay("show");
             // AR despues lo completo con las funciones que me vienen del controller acorde a los parametros
-            $.getJSON('/Reservas/CargaFunciones/' + $('#Funcion_PeliculaId').val() + '/' + $('#FechaTexto').val() + '/' + $('#CantidadButacas').val(),
+            $.getJSON('/Reservas/CargaFunciones/' + $('#Funcion_PeliculaId').val() + '/' + $('#Fecha').val() + '/' + $('#CantidadButacas').val(),
                 function (data) {
                     // AR me fijo si hay funciones, si no hay funciones mando un alerta y deshabilito el boton submit
                     if (data.length == 0) {

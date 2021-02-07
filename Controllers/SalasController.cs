@@ -59,35 +59,6 @@ namespace ReservasDeCine.Controllers
         }
 
 
-        //       [Authorize(Roles = nameof(Rol.Administrador))]
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sala = await _context.Salas
-               .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (sala == null)
-            {
-                return NotFound();
-            }
-
-            return View(sala);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var sala = await _context.Salas.FindAsync(id);
-            _context.Salas.Remove(sala);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)

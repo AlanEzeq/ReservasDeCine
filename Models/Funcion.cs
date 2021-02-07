@@ -13,7 +13,7 @@ namespace ReservasDeCine.Models
         [Required(ErrorMessage = "Este campo es requerido")]
         [Display(Name = "Fecha")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        [DataType(DataType.Date)]
+//        [DataType(DataType.Date)]
         public DateTime Fecha { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido")]

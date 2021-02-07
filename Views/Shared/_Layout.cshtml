@@ -6,11 +6,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CineRos</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
+
+    <title>@ViewData["Title"] - CineRos</title>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -49,7 +52,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Peliculas" asp-action="Index">Películas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Reservas</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="IndexEmpleado">Reservas</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
@@ -62,6 +65,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Funciones" asp-action="Index">Funciones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="BalanceRecaudacion" asp-action="Index">Recaudación</a>
                                 </li>
                             }
                             <li class="nav-item">
@@ -113,11 +119,12 @@
 
     @if (TempData["JustLoggedIn"] as bool? ?? false)
     {
-        <script>
-            alertify.success('Bienvenido @User.Identity.Name !!!');
-        </script>
+<script>
+            alertify.success('Bienvenido @User.FindFirst(ClaimTypes.GivenName).Value !!!');
+</script>
     }
 
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>

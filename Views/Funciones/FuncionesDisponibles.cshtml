@@ -2,11 +2,8 @@
 
 @{ ViewData["Title"] = "Funciones"; }
 
-<h1>Funciones</h1>
+<h1>@TempData["Titulo"]</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-outline-primary">Crear Función</a>
-</p>
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -26,14 +23,9 @@
                 @Html.DisplayNameFor(model => model.Confirmada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pelicula.Titulo)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Sala.Numero)
             </th>
-            <th></th>
-            <th></th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -56,38 +48,20 @@
                 @Html.DisplayFor(modelItem => item.Confirmada)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Pelicula.Titulo)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Sala.Numero)
             </td>
-            <td>
-                <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
-                    Editar
-                </a>
-            </td>
-            <td>
-                <a class="btn btn-outline-info btn-sm ml-1" asp-action="Details" asp-route-id="@item.Id">
-                    Detalles
-                </a>
-            </td>
-            <td>
-                <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
-                    Eliminar
-                </a>
 
-            </td>
         </tr>
         }
     </tbody>
 </table>
+<p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-danger">Volver</a>
+</p>
 
 <!-- AR agregue esto para que se vean las filas en 2 colores, el de boostrap no se nota o no funciona-->
 <style>
     .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(217, 217, 217, 0.8);
-    }
-    .table-striped tbody tr:nth-of-type(even) {
-        background-color: rgba(0, 124, 178, 0.8);
+        background-color: rgba(217, 217, 217, 1);
     }
 </style>

@@ -10,10 +10,13 @@ using ReservasDeCine.Models;
 using ReservasDeCine.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
+using ReservasDeCine.Models.Enums;
+using System.Security.Claims;
 
 namespace ReservasDeCine.Controllers
 {
-    //   [Authorize]
+    [Authorize]
     public class ReservasController : Controller
     {
         private readonly ReservasDeCineDbContext _context;
@@ -23,9 +26,29 @@ namespace ReservasDeCine.Controllers
             _context = context;
         }
 
-        //       [Authorize(Roles = nameof(Rol.Administrador))]
+        [Authorize(Roles = nameof(Rol.Cliente))]
+        
         public async Task<IActionResult> Index()
         {
+            // AR Busco el id del cliente
+            var clienteId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            // AR despues de resolver el logueo filtrar por cliente
+            var ReservasDeCineDbContext = _context.Reservas
+                .Include(j => j.Funcion)
+                .ThenInclude(i => i.Pelicula)
+                .Include(j => j.Funcion)
+                .ThenInclude(i => i.Sala)
+                .Where(reserva => reserva.ClienteId == clienteId)
+                .OrderByDescending(j => j.FechaAlta);
+
+            return View(await ReservasDeCineDbContext.ToListAsync());
+        }
+        
+        
+        [Authorize(Roles = nameof(Rol.Empleado))]
+        public async Task<IActionResult> IndexEmpleado()
+        {
+
             // AR despues de resolver el logueo filtrar por cliente
             var ReservasDeCineDbContext = _context.Reservas
                 .Include(j => j.Funcion)
@@ -37,8 +60,7 @@ namespace ReservasDeCine.Controllers
             return View(await ReservasDeCineDbContext.ToListAsync());
         }
 
-        //        [Authorize(Roles = nameof(Rol.Administrador))]
-
+        [Authorize(Roles = nameof(Rol.Cliente))]
         public IActionResult Create()
         {
             // AR filtrar solo las peliculas cuyas funciones esten habilitadas
@@ -67,7 +89,7 @@ namespace ReservasDeCine.Controllers
               ON fu.SalaId = sa.Id
               WHERE" +
               " fu.PeliculaId = '" + Peliculaid + "'" +
-              " AND CONVERT(varchar,fu.fecha,5) = '" + Fecha + "'" +
+              " AND CONVERT(varchar,fu.fecha,23) = '" + Fecha + "'" +
               " AND fu.Confirmada = 1 " +
               " AND fu.ButacasDisponibles >= " + CantidadButacas;
 
@@ -96,6 +118,7 @@ namespace ReservasDeCine.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Guid FuncionId, int CantidadButacas)
         {
+            var clienteId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             Reserva nuevaReserva = new Reserva();
 
             if (ModelState.IsValid)
@@ -103,7 +126,7 @@ namespace ReservasDeCine.Controllers
                 nuevaReserva.Id = Guid.NewGuid();
                 nuevaReserva.FechaAlta = DateTime.Now;
                 // AR Hardcodeo cliente por ahora
-                nuevaReserva.ClienteId = new Guid("F6A5E928-F3CD-4636-A362-0A4431C9DEDF");
+                nuevaReserva.ClienteId = clienteId;
                 nuevaReserva.CantidadButacas = CantidadButacas;
                 nuevaReserva.FuncionId = FuncionId;
                 _context.Add(nuevaReserva);
@@ -180,6 +203,15 @@ namespace ReservasDeCine.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var reserva = await _context.Reservas.FindAsync(id);
+           
+            // AR agrego las butacas reservadas en el delete.
+            var FuncionAModificar = _context.Funciones
+                    .Where(f => f.Id == reserva.FuncionId)
+                    .FirstOrDefault();
+
+            FuncionAModificar.ButacasDisponibles += reserva.CantidadButacas;
+
+            _context.Funciones.Update(FuncionAModificar);
             _context.Reservas.Remove(reserva);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

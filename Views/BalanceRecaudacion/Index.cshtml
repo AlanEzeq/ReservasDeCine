@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Recaudación por pelicula";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recaudación por pelicula</h5>
+                <form asp-action="VerBalance" method="post">
+                    <div class="form-group">
+                        <label for="PeliculaId" class="control-label">Película</label>
+                        <select name="PeliculaId" class="form-control selectpicker" asp-items="ViewBag.PeliculaId">
+                            <option>Seleccione una película</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Ano" class="control-label">Año</label>
+                        <input for="Ano" class="form-control" name="Ano" type="number" min="2010" max="2030"/>
+                        <span for="Ano" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Mes" class="control-label">Mes</label>
+                        <input for="Mes" class="form-control" name="Mes" type="number" min="1" max="12"/>
+                        <span for="Mes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Calcular" class="btn btn-success" />
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Volver</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
