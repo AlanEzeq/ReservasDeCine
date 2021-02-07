@@ -43,7 +43,6 @@ namespace ReservasDeCine.Controllers
 
             return View(await ReservasDeCineDbContext.ToListAsync());
         }
-        
 
         [Authorize(Roles = nameof(Rol.Cliente))]
         public IActionResult Create()
