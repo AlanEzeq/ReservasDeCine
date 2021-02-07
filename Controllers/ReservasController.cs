@@ -44,21 +44,6 @@ namespace ReservasDeCine.Controllers
             return View(await ReservasDeCineDbContext.ToListAsync());
         }
         
-        
-        [Authorize(Roles = nameof(Rol.Empleado))]
-        public async Task<IActionResult> IndexEmpleado()
-        {
-
-            // AR despues de resolver el logueo filtrar por cliente
-            var ReservasDeCineDbContext = _context.Reservas
-                .Include(j => j.Funcion)
-                .ThenInclude(i => i.Pelicula)
-                .Include(j => j.Funcion)
-                .ThenInclude(i => i.Sala)
-                .OrderByDescending(j => j.FechaAlta);
-
-            return View(await ReservasDeCineDbContext.ToListAsync());
-        }
 
         [Authorize(Roles = nameof(Rol.Cliente))]
         public IActionResult Create()
