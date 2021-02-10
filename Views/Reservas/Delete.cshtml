@@ -1,40 +1,44 @@
 ﻿@model ReservasDeCine.Models.Reserva
 
-@{
-    ViewData["Title"] = "Borrar reserva";
-}
+@{ ViewData["Title"] = "Borrar reserva"; }
 
-<h1>Delete</h1>
-
-<h3>¿Seguro que quiere eliminar esta reserva?</h3>
 <div>
-    <h4>Reserva</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Funcion.Pelicula.Titulo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Funcion.Pelicula.Titulo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Funcion.Fecha)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Funcion.Fecha)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CantidadButacas)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CantidadButacas)
-        </dd>
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <h3>¿Seguro que quiere eliminar esta reserva?</h3>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-5">
+                            @Html.DisplayNameFor(model => model.Funcion.Pelicula.Titulo)
+                        </dt>
+                        <dd class="col-sm-5">
+                            @Html.DisplayFor(model => model.Funcion.Pelicula.Titulo)
+                        </dd>
+                        <dt class="col-sm-5">
+                            @Html.DisplayNameFor(model => model.Funcion.Fecha)
+                        </dt>
+                        <dd class="col-sm-5">
+                            @Html.DisplayFor(model => model.Funcion.Fecha)
+                        </dd>
+                        <dt class="col-sm-5">
+                            @Html.DisplayNameFor(model => model.CantidadButacas)
+                        </dt>
+                        <dd class="col-sm-5">
+                            @Html.DisplayFor(model => model.CantidadButacas)
+                        </dd>
 
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                    </dl>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" /> |
+                        <a asp-action="Index">Back to List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+          

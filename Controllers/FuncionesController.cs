@@ -26,6 +26,7 @@ namespace ReservasDeCine.Controllers
             var ReservasDeCineDbContext = _context.Funciones
                 .Include(j => j.Pelicula)
                 .Include(j => j.Sala)
+                .Include(i => i.Reserva)
                 .Where(i => i.Fecha >= DateTime.Now)
                 .OrderBy(j => j.Fecha); 
             return View(await ReservasDeCineDbContext.ToListAsync());
@@ -194,6 +195,28 @@ namespace ReservasDeCine.Controllers
 
         }
 
+        public async Task<IActionResult> VerReservas(Guid id)
+        {
+            // AR despues de resolver el logueo filtrar por cliente
+            var ReservasDeCineDbContext = _context.Reservas
+                .Include(j => j.Funcion)
+                .ThenInclude(i => i.Pelicula)
+                .Include(j => j.Funcion)
+                .ThenInclude(i => i.Sala)
+                .Where(funcion => funcion.FuncionId == id)
+                .OrderByDescending(j => j.FechaAlta);
+
+            if (ReservasDeCineDbContext.FirstOrDefault() == null)
+            {
+                TempData["Titulo"] = "No hay reservas para esta función";
+                return View(await ReservasDeCineDbContext.ToListAsync());
+            }
+
+            TempData["Titulo"] = "Reservas de la funcion: ";
+
+            return View(await ReservasDeCineDbContext.ToListAsync());
+
+        }
 
         private bool FuncionExists(Guid id)
         {

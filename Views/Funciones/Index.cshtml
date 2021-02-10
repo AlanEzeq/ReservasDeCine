@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ReservasDeCine.Models.Funcion>
+﻿@using ReservasDeCine.Models.Enums
+@using System.Security.Claims
+@model IEnumerable<ReservasDeCine.Models.Funcion>
 
 @{ ViewData["Title"] = "Funciones"; }
 
@@ -31,6 +33,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Sala.Numero)
             </th>
+            @if (User.IsInRole(nameof(Rol.Empleado)))
+            {
+                 <th></th>
+            }
             <th></th>
             <th></th>
             <th></th>
@@ -61,6 +67,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Sala.Numero)
             </td>
+            @if (User.IsInRole(nameof(Rol.Empleado)))
+            {
+                <td>
+                    <a class="btn btn-outline-primary btn-sm" asp-action="VerReservas" asp-route-id="@item.Id">
+                        Ver Reservas
+                    </a>
+                </td>
+            }
             <td>
                 <a class="btn btn-outline-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">
                     Editar
@@ -71,13 +85,19 @@
                     Detalles
                 </a>
             </td>
-            <td>
-                <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
-                    Eliminar
-                </a>
-
-            </td>
-        </tr>
+            @if (item.Reserva.Count == 0)
+            {
+                <td>
+                    <a class="btn btn-outline-danger btn-sm ml-1" asp-action="Delete" asp-route-id="@item.Id">
+                        Eliminar
+                    </a>
+                </td>
+            }
+            else
+            {
+                <td></td>
+            }
+            </tr>
         }
     </tbody>
 </table>
@@ -87,7 +107,8 @@
     .table-striped tbody tr:nth-of-type(odd) {
         background-color: rgba(217, 217, 217, 0.8);
     }
+
     .table-striped tbody tr:nth-of-type(even) {
-        background-color: rgba(0, 124, 178, 0.8);
+        background-color: rgba(128, 128, 128, 0.8);
     }
 </style>

@@ -67,6 +67,7 @@ namespace ReservasDeCine.Controllers
             }
 
             var sala = await _context.Salas
+                .Include(j => j.TipoSala)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sala == null)
             {

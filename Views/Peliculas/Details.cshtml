@@ -4,7 +4,7 @@
     ViewData["Title"] = $"Pelicula {Model.Titulo}";
 }
 
-<div class="row">
+<div>
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
@@ -13,28 +13,28 @@
                 <hr />
 
                 <dl class="row">
-                    <dt class="col-sm-2">
+                    <dt class="col-sm-5">
                         @Html.DisplayNameFor(model => model.Titulo)
                     </dt>
-                    <dd class="col-sm-10">
+                    <dd class="col-sm-5">
                         @Html.DisplayFor(model => model.Titulo)
                     </dd>
-                    <dt class="col-sm-2">
+                    <dt class="col-sm-5">
                         @Html.DisplayNameFor(model => model.Descripcion)
                     </dt>
-                    <dd class="col-sm-10">
+                    <dd class="col-sm-5">
                         @Html.DisplayFor(model => model.Descripcion)
                     </dd>
-                    <dt class="col-sm-2">
+                    <dt class="col-sm-5">
                         @Html.DisplayNameFor(model => model.FechaLanzamiento)
                     </dt>
-                    <dd class="col-sm-10">
+                    <dd class="col-sm-5">
                         @Html.DisplayFor(model => model.FechaLanzamiento)
                     </dd>
-                    <dt class="col-sm-2">
+                    <dt class="col-sm-5">
                         Géneros
                     </dt>
-                    <dd class="col-sm-10">
+                    <dd class="col-sm-5">
                         <ul>
                             @foreach (Genero genero in Model.Generos.Select(PeliculaGenero => PeliculaGenero.Genero))
                             {

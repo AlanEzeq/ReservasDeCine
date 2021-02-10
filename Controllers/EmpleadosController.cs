@@ -36,7 +36,7 @@ namespace ReservasDeCine.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Clientes
+            var empleado = await _context.Empleados
               .FirstOrDefaultAsync(m => m.Id == id);
 
             if (empleado == null)

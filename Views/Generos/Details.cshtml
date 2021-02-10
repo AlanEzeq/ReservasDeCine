@@ -4,7 +4,7 @@
     ViewData["Title"] = $"Género {Model.Nombre}";
 }
 
-<div class="row">
+<div>
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
@@ -13,10 +13,10 @@
                 <hr />
 
                 <dl class="row">
-                    <dt class="col-sm-2">
+                    <dt class="col-sm-5">
                         @Html.DisplayNameFor(model => model.Nombre)
                     </dt>
-                    <dd class="col-sm-10">
+                    <dd class="col-sm-5">
                         @Html.DisplayFor(model => model.Nombre)
                     </dd>
                 </dl>
