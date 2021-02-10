@@ -23,7 +23,7 @@ namespace ReservasDeCine.Controllers
             _context = context;
         }
 
- //       [Authorize(Roles = nameof(Rol.Administrador))]
+ //       [Authorize(Roles = nameof(Rol.Cliente))]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Clientes.ToListAsync());
@@ -82,7 +82,7 @@ namespace ReservasDeCine.Controllers
             return View(cliente);
         }
 
-    //    [Authorize(Roles = nameof(Rol.Administrador))]
+    //    [Authorize(Roles = nameof(Rol.Cliente))]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -98,7 +98,7 @@ namespace ReservasDeCine.Controllers
             return View(cliente);
         }
 
-    //    [Authorize(Roles = nameof(Rol.Administrador))]
+    //    [Authorize(Roles = nameof(Rol.Cliente))]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Guid id, Cliente cliente, string pass)

@@ -25,9 +25,9 @@
         </tr>
     </thead>
     <tbody>
-            @for (int i = 0; i < Model.Count(); i++)
+        @foreach (Reserva item in Model)
+           // @for (int i = 0; i < Model.Count(); i++)
             {
-                var item = Model.ElementAtOrDefault(i);
                 <tr>
                     <td>
                         @item.Funcion.Fecha.ToString("dd/MM/yyyy")
@@ -39,14 +39,14 @@
                         @item.Funcion.Pelicula.Titulo
                     </td>
                     <td>
-                        @item.FechaAlta.Date
+                        @item.FechaAlta.Date.ToString("dd/MM/yyyy")
                     </td>
                     <td>
                         @item.CantidadButacas
                     </td>
                 </tr>
             }
-        
+
     </tbody>
 </table>
 <p>

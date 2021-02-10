@@ -85,7 +85,7 @@ namespace ReservasDeCine.Controllers
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    funcionesli.Add(new SelectListItem { Text = rdr[1].ToString(), Value = rdr[0].ToString() });
+                    funcionesli.Add(new SelectListItem { Value = rdr[0].ToString(), Text = rdr[1].ToString() });
                 }
                 connection.Close();
 

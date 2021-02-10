@@ -11,7 +11,7 @@ using ReservasDeCine.Models.Enums;
 
 namespace ReservasDeCine.Controllers
 {
-   // [Authorize(Roles = nameof(Rol.Administrador))]
+   // [Authorize(Roles = nameof(Rol.Cliente))]
     public class FuncionesController : Controller
     {
         private readonly ReservasDeCineDbContext _context;
